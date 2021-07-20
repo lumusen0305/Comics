@@ -13,8 +13,8 @@
 </script>
 
 <style scoped>
-    /* @import "./assets/css/main.css";
-    @import "./assets/css/color-dark.css"; */
+    @import "./assets/css/main.css";
+    /* @import "./assets/css/color-dark.css"; */
     html,body,#app{
         height: 100%;
         margin: 0;

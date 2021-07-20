@@ -1,0 +1,17 @@
+@font-face {
+    font-family: dahot2;
+    src: url("../../../../assets/font/dahot2.Filxgirl.ttf")
+  }
+
+  .title{
+    font-size: 45px;
+    font-family: dahot2;
+    color:black;
+  }
+.background{
+  width: 100%;
+}
+.preview{
+  height: 100%;
+  width: 100%;
+}

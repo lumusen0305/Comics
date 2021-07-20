@@ -36,7 +36,7 @@
                         <a @click="showRegister">
                           沒有帳號？...
                         </a>
-                        <a-modal v-model="registerVisible" title="Basic Modal"ok-text="确认" cancel-text="取消" @ok="hideRegister">
+                        <a-modal v-model="registerVisible" title="Basic Modal" ok-text="确认" cancel-text="取消" @ok="hideRegister">
                           <a-input ref="userNameInput" v-model="userName" placeholder="Register Your username">
                             <a-icon slot="prefix" type="user" />
                           </a-input>
@@ -48,7 +48,7 @@
                           <br />
                           <br />
                           <div>
-                            <a-select default-value="+86" style="width: 120px" @change="handleChange" class="verified" Style="width: 100px">
+                            <a-select default-value="+86" style="width: 120px" @change="handleChange" class="verified" >
                               <a-select-option value="+86">
                                 CHINA +86
                               </a-select-option>
@@ -107,7 +107,7 @@
             </a-carousel>
           </div>
             <div class="siber_btn">
-              <button class="btn">Start</button>
+              <button class="btn" v-on:click="jumpToSong">Start</button>
             </div>
         </a-layout-content>
       </a-layout>
@@ -155,12 +155,9 @@ export default {
     jumpToWallpaper(){
     },
     jumpToSong(){
-      document.location.href = "/work";
+      document.location.href = "/work#/Index";
     },
-    jumpToWine(){
-      document.location.href = "/work";
 
-    },
     showRegister() {
       this.visible=false;
       this.registerVisible = true;

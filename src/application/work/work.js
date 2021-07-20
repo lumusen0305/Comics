@@ -14,6 +14,7 @@ import { Card } from 'ant-design-vue';
 import { Input } from 'ant-design-vue';
 import { Select } from 'ant-design-vue';
 import { Carousel} from 'ant-design-vue';
+import { Avatar} from 'ant-design-vue';
 Vue.config.productionTip = false
 Vue.prototype.$ajax = axios
 Vue.prototype.$http = http
@@ -27,6 +28,7 @@ Vue.use(Col);
 Vue.use(Icon);
 Vue.use(Button);
 Vue.use(Layout);
+Vue.use(Avatar);
 
 new Vue({
     router,
