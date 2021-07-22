@@ -1,7 +1,7 @@
 <template>
 <div>
-  <div class="navbar">
-    <div class="navbar_tool">
+  <div   v-bind:class="{ 'navbar_top' : isTop, 'navbar': !isTop}">
+    <div class="navbar_tool" >
       <a-row>
         <a-col :span="4" :offset="1" >
           <div class="title">R Heart</div>
@@ -40,6 +40,7 @@ html,body,#root{
   height: 100%;
   padding: 0;
   margin: 0;
+  /* background-color:black; */
   background-color:rgb(247, 247, 247);
 }
 .navbar_icon{
@@ -56,8 +57,22 @@ html,body,#root{
   width: 100%;
   /*border-top: 1px solid #ddd;*/
   border-bottom: 3px solid #ff0000;
-}
+    -webkit-transition: 0.5s;
 
+}
+.navbar_top{
+  z-index:9999 ;
+  overflow: hidden;
+  color: white;
+  /* background-color: white; */
+  position: fixed;
+  top: 0;
+  height: 60px;
+  width: 100%;
+  -webkit-transition: 0.5s;
+  /*border-top: 1px solid #ddd;*/
+  /* border-bottom: 3px solid #ff0000;  */
+}
 .navbar_tool{
   width: 100%;
   height: 100%;
@@ -75,7 +90,8 @@ export default {
     return {
       visible: false,
       registerVisible:false,
-      i : 0
+      i : 0,
+      isTop: true,
     };
   },
   mounted () {
@@ -90,9 +106,12 @@ export default {
       var scroll = scrollTop - this.i;
       this.i = scrollTop;
       if(scrollTop==0){
-          console.log("到頂了")
+          this.isTop=true;
+          console.log(this.isTop)
       }else{
-          console.log('down')
+          console.log(this.isTop)
+          this.isTop=false;
+
     }
         },
     showModal() {

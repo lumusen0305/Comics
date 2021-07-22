@@ -19,6 +19,16 @@
               </div>
             </a-carousel>
           </div>
+          <div class="context">
+            <nav class="contex_title">
+              熱門漫畫
+            </nav>
+            <a-card >
+              <p>Card content</p>
+              <p>Card content</p>
+              <p>Card content</p>
+          </a-card>
+          </div>
         </div>
 </template>
 

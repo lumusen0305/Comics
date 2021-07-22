@@ -6,7 +6,7 @@
   .title{
     font-size: 45px;
     font-family: dahot2;
-    color:black;
+    /* color:black; */
   }
 .background{
   width: 100%;
@@ -14,4 +14,14 @@
 .preview{
   height: 100%;
   width: 100%;
+}
+.context{
+  width: 50%;
+  border-radius:5px;
+  margin:0 auto;
+}
+.contex_title{
+  margin-top: 5%;
+  margin-bottom: 10px;
+  font-size: 40px;
 }
