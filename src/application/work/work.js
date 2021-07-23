@@ -16,11 +16,13 @@ import { Select } from 'ant-design-vue';
 import { Carousel} from 'ant-design-vue';
 import { Avatar} from 'ant-design-vue';
 import { Rate} from 'ant-design-vue';
+import { BackTop} from 'ant-design-vue';
 
 Vue.config.productionTip = false
 Vue.prototype.$ajax = axios
 Vue.prototype.$http = http
 
+Vue.use(BackTop);
 Vue.use(Rate);
 Vue.use(Carousel);
 Vue.use(Input);

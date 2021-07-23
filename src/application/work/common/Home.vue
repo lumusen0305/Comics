@@ -1,6 +1,7 @@
 <template>
 <div class="wrapper">
 <v-head></v-head>
+
 <div class="content-box" :class="{'content-collapse':collapse}">
   <div class="content">
     <transition name="move" mode="out-in">
