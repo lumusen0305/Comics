@@ -27,23 +27,25 @@
               <div>
                 <div class="comic_item" v-for="item in comics">
                       <a-row >
-                        <a-col :span="5">
+                        <a-col :span="5" :offset="1">
                           <img class="comic_img"
                             alt="example"
-                            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                            :src=" item.image"
                           />
                           </a-col>
-                        <a-col :span="17" :offset="2">
+                        <a-col :span="17" :offset="1">
                           <nav class="comic_title">
-                            {{ item.title }}
+                            {{ item.name }}
                           </nav>
-                            <a-rate class="comic_star" v-model="value"  disabled/>
+                            <a-rate class="comic_star" v-model="item.star"  disabled/>
                           <nav class="comic_context">
-                            {{ item.context }}
+                            {{ item.update_time }}
                           </nav>
                         </a-col>
                       </a-row>
+                      
                 </div>  
+                <div class="load"  size="large" v-if="spinning == true"><a-spin :spinning="spinning" tip="Loading..."></a-spin></div>
               </div>  
             </a-card>
           </div>
@@ -98,23 +100,72 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
 name: "index",
   data() {
     return {
       value: 2,
-      comics:[
-        {
-        title: '打火英雄之霸道狗子愛上我',
-        context: '死刑犯·风见多鹤在短短数年里杀害了89人。在她手下丧命的尸体，被她的追随者们尊崇为艺术，其本人的绰号亦是将ARTIST（艺术家）和MURDER（杀人狂）结合的词语『MURDIST』。'
-        },
-        {
-        title: '農村英雄傳之二狗崛起',
-        context: '死刑犯·风见多鹤在短短数年里杀害了89人。在她手下丧命的尸体，被她的追随者们尊崇为艺术，其本人的绰号亦是将ARTIST（艺术家）和MURDER（杀人狂）结合的词语『MURDIST』。'
-        }
-      ]
+      comics:[],
+      page : 1,
+      isBottom: false,
+      spinning: false
     };
-  },}
+  },
+  mounted () {
+  window.addEventListener('scroll', this.handleScrollToBottom, true);  
+  },
+  methods: {
+    handleScrollToBottom(){
+      var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+      //变量windowHeight是可视区的高度
+      var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      //变量scrollHeight是滚动条的总高度
+      var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+           //滚动条到底部的条件
+      if(scrollTop+windowHeight==scrollHeight){
+      this.page=this.page+1;
+      console.log(this.page)
+      this.getComics();
+      }   
+    },
+    getComics(){
+    this.spinning=true;
+      axios({
+      method: 'post',
+      baseURL: 'http://127.0.0.1:5000',
+      url: '/comic/getComic',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      data: {
+      'page': this.page,
+      },
+      }).then((response) => {
+        // console.log(response.data)
+          response.data.data.forEach(item => {
+              this.comics.push(
+                  {
+                      name : item.name,
+                      url : item.url,
+                      image :item.image,
+                      star:item.star,
+                      update_time:item.update_time
+                  })
+              this.page+1;
+          });
+        this.spinning=false;
+      })
+      .catch((err) => {
+          console.log(err)
+      })  
+    }
+  },
+  created() {
+    this.getComics();
+    this.page=1;
+   }
+  }
 </script>
 
 <style scoped>
