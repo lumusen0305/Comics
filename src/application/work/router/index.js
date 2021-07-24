@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '@/application/work/views/index.vue'
+import Comic from '@/application/work/views/comic.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 //使用 vue-router
 Vue.use(VueRouter)
@@ -16,7 +17,10 @@ export default new VueRouter({
                 {
                     path: '/Index',
                     component: Index,
-                    meta: {title: '系统首页'}
+                },
+                {
+                    path: '/Comic',
+                    component: Comic,
                 },
             ]
         }

@@ -30,18 +30,23 @@
   height: 30vh;
   /* background-color: blue; */
   border-bottom: 1px solid rgb(200, 200, 200);
+  cursor: pointer;  /*鼠标悬停变小手*/
 
 }
 .comic_img{
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   object-fit:cover;
 }
 .comic_title{
   font-size: 4vh;
 }
+.comic_intro_title{
+  font-size: 6vh;
+}
 .comic_context{
   font-size: 2.5vh;
+  color: #838383;
 }
 .comic_star{
   font-size: 3.5vh;

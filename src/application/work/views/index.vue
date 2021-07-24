@@ -25,8 +25,8 @@
             </nav>
             <a-card >
               <div>
-                <div class="comic_item" v-for="item in comics">
-                      <a-row >
+                <div class="comic_item" v-for="item in comics" v-on:click="goToComic(item)">
+                      <a-row > 
                         <a-col :span="5" :offset="1">
                           <img class="comic_img"
                             alt="example"
@@ -116,6 +116,11 @@ name: "index",
   window.addEventListener('scroll', this.handleScrollToBottom, true);  
   },
   methods: {
+    goToComic(item){
+      this.$store.state.comic=item
+      console.log(this.$store.state.comic.url)
+      this.$router.push('/Comic');
+    },
     handleScrollToBottom(){
       var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
       //变量windowHeight是可视区的高度
@@ -125,7 +130,6 @@ name: "index",
            //滚动条到底部的条件
       if(scrollTop+windowHeight==scrollHeight){
       this.page=this.page+1;
-      console.log(this.page)
       this.getComics();
       }   
     },

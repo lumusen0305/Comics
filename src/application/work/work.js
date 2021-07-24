@@ -1,5 +1,6 @@
 import 'ant-design-vue/dist/antd.css';
 import router from './router';
+import Vuex from 'vuex'
 import axios from 'axios'
 import http from './api/config.js';
 import Vue from 'vue'
@@ -18,11 +19,12 @@ import { Avatar} from 'ant-design-vue';
 import { Rate} from 'ant-design-vue';
 import { BackTop} from 'ant-design-vue';
 import { Spin} from 'ant-design-vue';
+import store from './store'
 
 Vue.config.productionTip = false
 Vue.prototype.$ajax = axios
 Vue.prototype.$http = http
-
+Vue.use(Vuex)
 Vue.use(Spin);
 Vue.use(BackTop);
 Vue.use(Rate);
@@ -39,6 +41,7 @@ Vue.use(Avatar);
 
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app')
 

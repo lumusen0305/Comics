@@ -3,7 +3,7 @@
   <div class="bg">
     <a-layout id="components-layout-demo-basic">
       <a-layout-sider width="40%">
-        <img src="../../assets/anemia_1.png">
+        <img src="../../assets/蝴蝶_1.png">
       </a-layout-sider>
       <a-layout>
         <a-layout-header>
@@ -227,8 +227,9 @@ html,body {
   background-color: #F3CD05;
 }
 #components-layout-demo-basic .ant-layout-sider img {
-  min-height: 100%;
-  width: 100%;
+  height: 100%;
+  /* width: 100%; */
+
 }
 #components-layout-demo-basic {
   text-align: center;
