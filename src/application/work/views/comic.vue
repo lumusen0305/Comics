@@ -17,7 +17,7 @@
                           突然来到无人岛。逼近的神秘生物。100天的生存逃脱剧情！！ 什幺都没有，也失去了记忆。 注意到时，已经在不可思议的无人岛。 从未见过的生物。神秘的文明遗迹。 在个日 记里留下了不可思议的100天。
                         </nav>
                         <nav class="comic_btn">
-                                <a-button type="primary" icon="read">
+                                <a-button type="primary" icon="read" v-on:click="getimg()">
                                   閱讀
                                 </a-button>
                                 <a-button icon="star" class="test" style="margin-left: 4vh;">
@@ -29,6 +29,28 @@
             </div>
             <a-card class="comic_list">
               <div>
+                <div class="comic_item" v-for="item in chapter" v-on:click="goToComic(item)">
+                      <a-row > 
+                        <a-col :span="5" :offset="1">
+                          <img class="comic_img"
+                            alt="example"
+                            :src=" item.image"
+                            referrerPolicy="no-referrer"
+                          />
+                          </a-col>
+                        <a-col :span="17" :offset="1">
+                          <nav class="comic_title">
+                            {{ item.name }}
+                          </nav>
+                            <a-rate class="comic_star" v-model="item.star"  disabled/>
+                          <nav class="comic_context">
+                            {{ item.update_time }}
+                          </nav>
+                        </a-col>
+                      </a-row>
+                      
+                </div>  
+                <div class="load"  size="large" v-if="spinning == true"><a-spin :spinning="spinning" tip="Loading..."></a-spin></div>
               </div>  
             </a-card>
           </div>
@@ -40,8 +62,22 @@ export default {
     name: "comic",
     data() {
     return {
-
+        chapter:[{
+          "image":"https://i.hamreus.com/ps4/g/gmzr_wkhsq/第206话特别短篇/1601837420v2iIedaGEJj0CytS.jpg?e=1627860757&m=P9a3DgADpU1eaMchBhA_og"
+        }]
       };
+    },
+    methods:{
+    getimg(){
+      axios.get("https://i.hamreus.com/ps4/g/gmzr_wkhsq/第206话特别短篇/1601837420v2iIedaGEJj0CytS.jpg?e=1627860757&m=P9a3DgADpU1eaMchBhA_og", {
+        responseType: 'arraybuffer',
+        headers:{"Referer":"https://www.manhuagui.com/"}
+      }).then(response => {
+        console.log('data:image/png;base64,' +btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')));
+      }).then(data=>{
+        that.$refs.img.src=data;
+      });
+      },
     },
 }
 </script>
