@@ -22,20 +22,20 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ## welcome
 
-![image-20210728060004606](/home/user/.config/Typora/typora-user-images/image-20210728060004606.png)
+![image-20210728060004606](/home/user/Documents/Code/HTML/Vue/comics/README.assets/image-20210728060004606.png)
 
 ## comicList
 
-![image-20210728060149793](/home/user/.config/Typora/typora-user-images/image-20210728060149793.png)
+![image-20210728060149793](/home/user/Documents/Code/HTML/Vue/comics/README.assets/image-20210728060149793.png)
 
-![image-20210728060133641](/home/user/.config/Typora/typora-user-images/image-20210728060133641.png)
+![image-20210728060133641](/home/user/Documents/Code/HTML/Vue/comics/README.assets/image-20210728060133641.png)
 
 ## chapterList
 
-![image-20210728060259151](/home/user/.config/Typora/typora-user-images/image-20210728060259151.png)
+![image-20210728060259151](/home/user/Documents/Code/HTML/Vue/comics/README.assets/image-20210728060259151.png)
 
 ## readPage
 
-![image-20210728060333025](/home/user/.config/Typora/typora-user-images/image-20210728060333025.png)
+![image-20210728060333025](/home/user/Documents/Code/HTML/Vue/comics/README.assets/image-20210728060333025.png)
 
-![image-20210728060347875](/home/user/.config/Typora/typora-user-images/image-20210728060347875.png)
+![image-20210728060347875](/home/user/Documents/Code/HTML/Vue/comics/README.assets/image-20210728060347875.png)
