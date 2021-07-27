@@ -5,12 +5,13 @@
                   <a-col :span="5" :offset="1">
                     <img class="img"
                         alt="example"
-                        src="https://cf.hamreus.com/cpic/b/19430.jpg"
-                    />
+                        :src="this.$store.state.comic.image"
+                    />                        
+
                     </a-col>
                     <a-col :span="16" :offset="2">
                         <nav class="comic_intro_title">
-                        鬼妹之刃
+                        {{this.$store.state.comic.name}}
                       </nav>
                         <!-- <a-rate class="comic_star" v-model="item.star"  disabled/> -->
                         <nav class="comic_context">
@@ -32,19 +33,14 @@
                 <div class="comic_item" v-for="item in chapter" v-on:click="goToComic(item)">
                       <a-row > 
                         <a-col :span="5" :offset="1">
-                          <img class="comic_img"
+                          <img class="chapter_img"
                             alt="example"
-                            :src=" item.image"
-                            referrerPolicy="no-referrer"
+                            :src="item.image"
                           />
                           </a-col>
                         <a-col :span="17" :offset="1">
                           <nav class="comic_title">
-                            {{ item.name }}
-                          </nav>
-                            <a-rate class="comic_star" v-model="item.star"  disabled/>
-                          <nav class="comic_context">
-                            {{ item.update_time }}
+                            {{ item.chapter }}
                           </nav>
                         </a-col>
                       </a-row>
@@ -62,23 +58,95 @@ export default {
     name: "comic",
     data() {
     return {
-        chapter:[{
-          "image":"https://i.hamreus.com/ps4/g/gmzr_wkhsq/第206话特别短篇/1601837420v2iIedaGEJj0CytS.jpg?e=1627860757&m=P9a3DgADpU1eaMchBhA_og"
-        }]
+        chapter:[],
+        spinning: false,
+        flag:true,
       };
     },
-    methods:{
-    getimg(){
-      axios.get("https://i.hamreus.com/ps4/g/gmzr_wkhsq/第206话特别短篇/1601837420v2iIedaGEJj0CytS.jpg?e=1627860757&m=P9a3DgADpU1eaMchBhA_og", {
-        responseType: 'arraybuffer',
-        headers:{"Referer":"https://www.manhuagui.com/"}
-      }).then(response => {
-        console.log('data:image/png;base64,' +btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), '')));
-      }).then(data=>{
-        that.$refs.img.src=data;
-      });
-      },
+    mounted () {
+      window.addEventListener('scroll', this.handleScrollToBottom, true);  
     },
+    methods:{
+      handleScrollToBottom(){
+        var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+        //变量windowHeight是可视区的高度
+        var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        //变量scrollHeight是滚动条的总高度
+        var scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+             //滚动条到底部的条件
+        if(scrollTop+windowHeight==scrollHeight){
+        this.getComicMoreList();
+        }   
+      },
+      getimg(){
+        console.log(this.$store.state.comic.image)
+      },
+      getComicMoreList(){
+        if(this.flag){
+          this.spinning=true;
+          axios({
+            method: 'post',
+            baseURL: 'http://127.0.0.1:5000',
+            url: '/comic/getComicMoreList',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: {
+            'comic_url': this.$store.state.comic.url,
+            },
+            }).then((response) => {
+              console.log("==========12313213=========")
+                response.data.data.forEach(item => {
+                    this.chapter.push(
+                        {
+                            chapter : item.chapter,
+                            url : item.url,
+                            image:item.image
+                        })
+                });
+              this.spinning=false;
+              this.flag=false;
+            })
+            .catch((err) => {
+                console.log(err)
+            }) 
+        } 
+      },
+      getChapter(){
+        this.spinning=true;
+        axios({
+          method: 'post',
+          baseURL: 'http://127.0.0.1:5000',
+          url: '/comic/getComicList',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          data: {
+          'comic_url': this.$store.state.comic.url,
+          },
+          }).then((response) => {
+            // console.log(response.data)
+              response.data.data.forEach(item => {
+                  this.chapter.push(
+                      {
+                          chapter : item.chapter,
+                          url : item.url,
+                          image:item.image
+                      })
+              });
+            this.spinning=false;
+          })
+          .catch((err) => {
+              console.log(err)
+          })  
+      },
+
+    },
+    created() {
+    console.log("================")
+    this.chapter=[];
+    this.getChapter();
+   }
 }
 </script>
 

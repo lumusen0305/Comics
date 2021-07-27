@@ -37,9 +37,9 @@
                           <nav class="comic_title">
                             {{ item.name }}
                           </nav>
-                            <a-rate class="comic_star" v-model="item.star"  disabled/>
+                            <!-- <a-rate class="comic_star" v-model="item.star"  disabled/> -->
                           <nav class="comic_context">
-                            {{ item.update_time }}
+                            {{ item.author }}
                           </nav>
                         </a-col>
                       </a-row>
@@ -153,8 +153,7 @@ name: "index",
                       name : item.name,
                       url : item.url,
                       image :item.image,
-                      star:item.star,
-                      update_time:item.update_time
+                      author:item.author,
                   })
               this.page+1;
           });
