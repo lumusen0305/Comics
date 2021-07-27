@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Index from '@/application/work/views/index.vue'
 import Comic from '@/application/work/views/comic.vue'
+import Read from '@/application/work/views/read.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 //使用 vue-router
 Vue.use(VueRouter)
@@ -21,6 +22,10 @@ export default new VueRouter({
                 {
                     path: '/Comic',
                     component: Comic,
+                },
+                {
+                    path: '/Read',
+                    component: Read,
                 },
             ]
         }

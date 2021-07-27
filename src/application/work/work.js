@@ -19,6 +19,9 @@ import { Avatar} from 'ant-design-vue';
 import { Rate} from 'ant-design-vue';
 import { BackTop} from 'ant-design-vue';
 import { Spin} from 'ant-design-vue';
+import { Statistic} from 'ant-design-vue';
+import { Slider} from 'ant-design-vue';
+
 import store from './store'
 
 Vue.config.productionTip = false
@@ -38,7 +41,8 @@ Vue.use(Icon);
 Vue.use(Button);
 Vue.use(Layout);
 Vue.use(Avatar);
-
+Vue.use(Statistic);
+Vue.use(Slider);
 new Vue({
     router,
     store,

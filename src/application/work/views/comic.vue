@@ -15,7 +15,7 @@
                       </nav>
                         <!-- <a-rate class="comic_star" v-model="item.star"  disabled/> -->
                         <nav class="comic_context">
-                          突然来到无人岛。逼近的神秘生物。100天的生存逃脱剧情！！ 什幺都没有，也失去了记忆。 注意到时，已经在不可思议的无人岛。 从未见过的生物。神秘的文明遗迹。 在个日 记里留下了不可思议的100天。
+                          {{this.detail}}
                         </nav>
                         <nav class="comic_btn">
                                 <a-button type="primary" icon="read" v-on:click="getimg()">
@@ -60,7 +60,8 @@ export default {
     return {
         chapter:[],
         spinning: false,
-        flag:true,
+        flag:false,
+        detail:'',
       };
     },
     mounted () {
@@ -95,7 +96,6 @@ export default {
             'comic_url': this.$store.state.comic.url,
             },
             }).then((response) => {
-              console.log("==========12313213=========")
                 response.data.data.forEach(item => {
                     this.chapter.push(
                         {
@@ -113,6 +113,7 @@ export default {
         } 
       },
       getChapter(){
+        this.getDetail();
         this.spinning=true;
         axios({
           method: 'post',
@@ -135,6 +136,28 @@ export default {
                       })
               });
             this.spinning=false;
+            this.flag=true;
+          })
+          .catch((err) => {
+              console.log(err)
+          })  
+      },
+      getDetail(){
+        axios({
+          method: 'post',
+          baseURL: 'http://127.0.0.1:5000',
+          url: '/comic/getComicDetail',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          data: {
+          'comic_url': this.$store.state.comic.url,
+          },
+          }).then((response) => {
+            // console.log(response.data)
+              response.data.data.forEach(item => {
+                  this.detail=item.detail;
+              });
           })
           .catch((err) => {
               console.log(err)
@@ -143,10 +166,12 @@ export default {
 
     },
     created() {
-    console.log("================")
+
+   },
+　　activated () {
     this.chapter=[];
     this.getChapter();
-   }
+　　}
 }
 </script>
 
