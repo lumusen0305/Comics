@@ -30,7 +30,7 @@
             </div>
             <a-card class="comic_list">
               <div>
-                <div class="comic_item" v-for="item in chapter" v-on:click="goToComic(item)">
+                <div class="comic_item" v-for="item in chapter" v-on:click="goToRead(item)">
                       <a-row > 
                         <a-col :span="5" :offset="1">
                           <img class="chapter_img"
@@ -78,6 +78,11 @@ export default {
         if(scrollTop+windowHeight==scrollHeight){
         this.getComicMoreList();
         }   
+      },
+      goToRead(item){
+        this.$store.state.chapter=item
+        console.log(this.$store.state.comic.url)
+        this.$router.push('/Read');
       },
       getimg(){
         console.log(this.$store.state.comic.image)

@@ -7,15 +7,15 @@
         <
     </div>
     <nav class="contex_title" style="font-size:3.5vh;">
-      熱門漫畫
+      {{this.$store.state.chapter.chapter}}
     </nav>
     <img
         class="img_context"
         alt="example"
-        src="https://tn1.kkmh.com/image/c385819/210708/rA0v25PzG.webp-t.w640.jpg.h?sign=fbf04a30c70ff94710be602acfdd2464&t=610071d8"
+        :src="this.comic_image[this.page].image"
     /> 
     <div class="bottom_page">
-        <a-slider v-model="page" :min="1" :max="this.max_page" />
+        <a-slider v-model="page" :min="1" :max="this.comic_image.length" />
         <a-statistic :value=this.page>
             <template #suffix>
                 
@@ -26,23 +26,27 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "read",
     data() {
     return {
         page:1,
         max_page:"21",
+        comic_image:[],
       };
     },
     watch:{
-        page:function(){
-            console.log('page:'+this.page)
-        }
+        // page:function(){
+        //     console.log('page:'+this.page)
+        // }
     },
     methods:{
         addPage(){
-            if(this.page<this.max_page){
+            if(this.page<this.comic_image.length){
                 this.page=this.page+1;
+                console.log(this.comic_image[0].image)
             }
         },
         reducePage(){
@@ -51,7 +55,7 @@ export default {
             }
         },
         keyDown(e) {
-        console.log(e.code)
+        // console.log(e.code)
         if(e.code=='ArrowRight'){
             this.addPage();
         }
@@ -59,10 +63,39 @@ export default {
             this.reducePage();
         }
         },
+        getImage(){
+          axios({
+            method: 'post',
+            baseURL: 'http://127.0.0.1:5000',
+            url: '/comic/getReadPage',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: {
+            'read_page': this.$store.state.chapter.url,
+            },
+            }).then((response) => {
+                // console.log(response.data.data)
+                response.data.data.forEach(item => {
+                    this.comic_image.push(
+                        {
+                            image:item.image
+                        })
+                });
+            })
+            .catch((err) => {
+                console.log(err)
+            }) 
+
+        },
     },
     mounted() {
         document.body.onkeydown = this.keyDown
-    }
+    },
+　　activated () {
+    this.comic_image=[];
+    this.getImage();
+　　}
 }
 </script>
 
@@ -104,7 +137,7 @@ position: fixed;
 
 }
 .read_img{
-    height: 100vh;
+    height: 70vh;
     background-color: rgba(180, 6, 6, 0.253)
 }
 .img_context{
